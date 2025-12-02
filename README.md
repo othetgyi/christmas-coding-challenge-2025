@@ -12,21 +12,58 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## Dependency Hygiene
 
-To learn more about Next.js, take a look at the following resources:
+This project follows strict dependency hygiene to reduce the risk of supply‑chain attacks and ensure reproducible installs.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Installing dependencies
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Never use** `npm install` without a clear reason once the lockfile exists.
+- **Always use**:
 
-## Deploy on Vercel
+  ```bash
+  npm ci --ignore-scripts
+  ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  This installs exactly what is defined in `package-lock.json` and prevents all npm lifecycle scripts (`preinstall`, `install`, `postinstall`, etc.) from running.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Lockfile and version pinning
+
+- All dependencies are **pinned to exact versions** in `package.json`.
+- The entire dependency tree (including transitive dependencies) is pinned via `package-lock.json`.
+- `package-lock.json` **must be committed** and its diffs **must be reviewed** in PRs.
+- Do not edit `package-lock.json` by hand.
+
+### Adding or updating dependencies
+
+When you need to add or change a dependency:
+
+1. Install it with an explicit version:
+
+   ```bash
+   npm install <package-name>@<version> --save
+   # or
+   npm install <package-name>@<version> --save-dev
+   ```
+
+2. This will update `package-lock.json`.
+3. Review the changes to both `package.json` and `package-lock.json`.
+4. Run tests before committing.
+
+### Lifecycle scripts
+
+- Lifecycle scripts from dependencies (e.g. `preinstall`, `postinstall`) are **blocked by default** using:
+
+  ```bash
+  npm ci --ignore-scripts
+  ```
+
+- The repository should not define `preinstall`, `install`, or `postinstall` scripts in `package.json`. Setup and project tasks are run via explicit npm scripts (e.g. `npm run build`, `npm test`).
+
+If a change requires enabling lifecycle scripts, it must be:
+
+- Justified in the PR description.
+- Reviewed and approved by a maintainer.
+- Run using a one‑off command (e.g. `npm ci --ignore-scripts=false`) rather than changing the default behavior.
