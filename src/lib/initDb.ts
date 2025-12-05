@@ -1,0 +1,21 @@
+import pool from './db';
+
+const initialiseDatabase = async () => {
+    try {
+        await pool.query(`
+                    CREATE TABLE IF NOT EXISTS words
+                    (
+                        id         SERIAL PRIMARY KEY,
+                        word       VARCHAR(255) NOT NULL UNIQUE,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    );
+            `
+        );
+        console.log("Database successfully initialised");
+    } catch (error) {
+        console.error('Error initialising database:', error);
+        throw error;
+    }
+}
+
+export default initialiseDatabase;
