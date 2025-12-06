@@ -1,4 +1,5 @@
-import pool from './db';
+// @ts-ignore
+import pool from './db.ts';
 
 const initialiseDatabase = async () => {
     try {
@@ -18,4 +19,5 @@ const initialiseDatabase = async () => {
     }
 }
 
+initialiseDatabase();
 export default initialiseDatabase;
