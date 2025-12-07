@@ -24,7 +24,6 @@ lerna-debug.log*
 
 # Environment & secrets
 .env
-.env.local
 .env.*.local
 
 # OS / editor files

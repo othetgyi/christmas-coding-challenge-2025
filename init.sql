@@ -1,0 +1,6 @@
+CREATE USER wordbank_user WITH PASSWORD :'wordbank_password';
+CREATE DATABASE wordbank OWNER wordbank_user;
+GRANT ALL PRIVILEGES ON DATABASE wordbank TO wordbank_user;
+GRANT ALL PRIVILEGES ON SCHEMA public TO wordbank_user;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO wordbank_user;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO wordbank_user;

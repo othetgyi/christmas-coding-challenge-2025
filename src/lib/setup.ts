@@ -1,6 +1,6 @@
 import {Client} from 'pg';
 
-process.loadEnvFile('.env.local');
+process.loadEnvFile('.env');
 
 console.log("ADMIN_DATABASE_URL:", process.env.ADMIN_DATABASE_URL);
 
