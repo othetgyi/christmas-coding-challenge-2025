@@ -1,4 +1,4 @@
-CREATE USER wordbank_user WITH PASSWORD :'wordbank_password';
+CREATE ROLE wordbank_user WITH LOGIN PASSWORD :'wordbank_password';
 CREATE DATABASE wordbank OWNER wordbank_user;
 GRANT ALL PRIVILEGES ON DATABASE wordbank TO wordbank_user;
 GRANT ALL PRIVILEGES ON SCHEMA public TO wordbank_user;

@@ -20,5 +20,15 @@ try {
     }
 }
 
-await client.query(`CREATE DATABASE wordbank OWNER wordbank_user;`);
+try {
+    await client.query(`CREATE DATABASE wordbank OWNER wordbank_user;`);
+    console.log("Database created");
+} catch (err: any) {
+    if (err.code === '42P04') {
+        console.log("Database already exists")
+    } else {
+        throw err;
+    }
+}
+
 await client.end();
