@@ -3,7 +3,6 @@ import {useState} from "react";
 
 const Home = () => {
     const [word, setWord] = useState("");
-    console.log("***word**", word);
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -11,10 +10,14 @@ const Home = () => {
         const formData = new FormData(form);
         const formJson = Object.fromEntries(formData.entries());
         console.log("***formJson**", formJson);
-        const response = await fetch("/api/wordbank");
-        const result = await response.json();
+        console.log("***formJson.word**", formJson.word);
+        const response = await fetch("/api/wordbank", {
+            method: "POST",
+            body: JSON.stringify(formJson.word)
+        });
+        console.log("***response**", response);
         setWord("");
-        console.log("***result**", result);
+
     }
 
     return (

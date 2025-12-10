@@ -4,7 +4,7 @@ import pool from './db.ts';
 const initialiseDatabase = async () => {
     try {
         await pool.query(`
-                    CREATE TABLE IF NOT EXISTS words
+                    CREATE TABLE IF NOT EXISTS wordbank
                     (
                         id         SERIAL PRIMARY KEY,
                         word       VARCHAR(255) NOT NULL UNIQUE,
