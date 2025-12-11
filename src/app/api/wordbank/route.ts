@@ -1,8 +1,8 @@
 import {NextRequest, NextResponse} from "next/server";
 import pool from "../../../lib/db";
-import initialiseDatabase from "@/lib/initDb";
+//import initialiseDatabase from "@/lib/initDb";
 
-initialiseDatabase();
+//initialiseDatabase();
 export const GET = (request: Request) => {
     const words = ["hello", "world"];
 
@@ -14,7 +14,7 @@ export const POST = async (request: NextRequest) => {
         const word = await request.json();
         console.log("***word in POST endpoint***", word);
 
-        const result = await pool.query(`INSERT INTO wordbank (word)
+        const result = await pool.query(`INSERT INTO words (word)
                                          VALUES ($1)
                                          RETURNING *`, [word]);
         return NextResponse.json({success: true, data: result.rows[0]})
