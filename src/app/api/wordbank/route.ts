@@ -1,8 +1,6 @@
 import {NextRequest, NextResponse} from "next/server";
 import pool from "../../../lib/db";
-//import initialiseDatabase from "@/lib/initDb";
 
-//initialiseDatabase();
 export const GET = (request: Request) => {
     const words = ["hello", "world"];
 
