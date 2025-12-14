@@ -11,17 +11,17 @@ const Home = () => {
 
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
-        const formJson = Object.fromEntries(formData.entries());
-        console.log("***formJson**", formJson);
-        console.log("***formJson.word**", formJson.word);
-        const isInputValid = validateInput(formJson.word);
+        const word = formData.get("word") as string;
+        console.log("***word**", word);
+
+        const isInputValid = validateInput(word);
         setIsValid(isInputValid);
 
         if (!isInputValid) return;
 
         const response = await fetch("/api/wordbank", {
             method: "POST",
-            body: JSON.stringify(formJson.word)
+            body: JSON.stringify({word})
         });
 
         console.log("***response**", response);
