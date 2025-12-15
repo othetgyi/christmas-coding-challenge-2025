@@ -30,6 +30,10 @@ a {
     text-decoration: none;
 }
 
+div.error {
+    color: red;
+}
+
 input.valid {
     border-color: black;
 }

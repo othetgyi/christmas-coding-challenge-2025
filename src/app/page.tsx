@@ -37,6 +37,7 @@ const Home = () => {
                            setWord(event.target.value)
                        }} className={isValid ? "valid" : "invalid"}/>
             </label>
+            <div className={"error"}>{!isValid ? "Please enter a word" : ""}</div>
             <button type="submit">Submit</button>
         </form>
     );
