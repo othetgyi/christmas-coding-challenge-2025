@@ -1,10 +1,30 @@
-const validateInput = (input: FormDataEntryValue) => {
+import {ValidationResult} from "json-schema";
+
+const validateInput = (input: string): ValidationResult => {
     const specialChars = /[~`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
-    if (!input || specialChars.test(<string>input) || input.length < 3) {
-        console.log("Invalid input");
-        return false
+    if (!input) {
+        return {
+            isValid: false,
+            message: "Please enter a word"
+        }
     }
-    return true;
+
+    if (specialChars.test(<string>input)) {
+        return {
+            isValid: false,
+            message: "Words cannot contain special characters"
+        }
+    }
+
+    if ((input as string).length < 3) {
+        return {
+            isValid: false,
+            message: "Words must be at least three letters long"
+        }
+    }
+
+    return {isValid: true, message: ""};
+
 }
 
 export default validateInput;

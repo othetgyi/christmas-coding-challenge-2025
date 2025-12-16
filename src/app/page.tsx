@@ -6,6 +6,8 @@ import validateInput from "@/utils/validateInput";
 const Home = () => {
     const [word, setWord] = useState("");
     const [isValid, setIsValid] = useState(true);
+    const [error, setError] = useState("");
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -14,10 +16,11 @@ const Home = () => {
         const word = formData.get("word") as string;
         console.log("***word**", word);
 
-        const isInputValid = validateInput(word);
-        setIsValid(isInputValid);
+        const {isValid, message} = validateInput(word);
+        setIsValid(isValid);
+        setError(message);
 
-        if (!isInputValid) return;
+        if (!isValid) return;
 
         const response = await fetch("/api/wordbank", {
             method: "POST",
@@ -37,7 +40,7 @@ const Home = () => {
                            setWord(event.target.value)
                        }} className={isValid ? "valid" : "invalid"}/>
             </label>
-            <div className={"error"}>{!isValid ? "Please enter a word" : ""}</div>
+            <div className={"error"}>{!isValid ? error : ""}</div>
             <button type="submit">Submit</button>
         </form>
     );
