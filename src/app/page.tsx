@@ -33,15 +33,19 @@ const Home = () => {
 
     return (
         <form method={"POST"} onSubmit={handleSubmit}>
-            <label>
-                Add a word to the dictionary:
-                <input type="text" value={word} name="word"
-                       onChange={(event) => {
-                           setWord(event.target.value)
-                       }} className={isValid ? "valid" : "invalid"}/>
-            </label>
-            <div className={"error"}>{!isValid ? error : ""}</div>
-            <button type="submit">Submit</button>
+            <label>Add a word to the dictionary:</label>
+            <div className={"flex-row"}>
+                <div className={"input-col"}>
+                    <input type="text" value={word} name="word"
+                           onChange={(event) => {
+                               setWord(event.target.value)
+                           }} className={isValid ? "" : "invalid"}/>
+                    <div className={"error"}>{!isValid ? error : ""}</div>
+                </div>
+                <div className={"buttonContainer"}>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
         </form>
     );
 }

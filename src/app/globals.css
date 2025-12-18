@@ -32,10 +32,24 @@ a {
 
 div.error {
     color: red;
+    font-size: 0.9em;
+    margin-top: 2px;
 }
 
-input.valid {
-    border-color: black;
+div.flex-row {
+    display: flex;
+    align-items: start;
+}
+
+
+div.buttonContainer {
+    display: flex;
+    align-items: start;
+}
+
+div.input-col {
+    display: flex;
+    flex-direction: column;
 }
 
 input.invalid {

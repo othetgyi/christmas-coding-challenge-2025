@@ -1,6 +1,4 @@
-import {ValidationResult} from "json-schema";
-
-const validateInput = (input: string): ValidationResult => {
+const validateInput = (input: string) => {
     const specialChars = /[~`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
     if (!input) {
         return {
