@@ -1,4 +1,4 @@
-const validateInput = (input: string) => {
+const validateInput = async (input: string) => {
     const specialChars = /[~`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
     if (!input) {
         return {
@@ -21,8 +21,15 @@ const validateInput = (input: string) => {
         }
     }
 
+    const result = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${input}`);
+    const response = await result.json();
+    if (response.title == "No Definitions Found") {
+        return {
+            isValid: false,
+            message: "No definition found"
+        }
+    }
     return {isValid: true, message: ""};
-
 }
 
 export default validateInput;

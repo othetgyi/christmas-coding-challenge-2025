@@ -16,7 +16,7 @@ const Home = () => {
         const word = formData.get("word") as string;
         console.log("***word**", word);
 
-        const {isValid, message} = validateInput(word);
+        const {isValid, message} = await validateInput(word);
         setIsValid(isValid);
         setError(message);
 
@@ -27,7 +27,6 @@ const Home = () => {
             body: JSON.stringify({word})
         });
 
-        console.log("***response**", response);
         setWord("");
     }
 
