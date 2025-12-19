@@ -7,6 +7,7 @@ const Home = () => {
     const [word, setWord] = useState("");
     const [isValid, setIsValid] = useState(true);
     const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -14,7 +15,6 @@ const Home = () => {
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
         const word = formData.get("word") as string;
-        console.log("***word**", word);
 
         const {isValid, message} = await validateInput(word);
         setIsValid(isValid);
@@ -24,8 +24,15 @@ const Home = () => {
 
         const response = await fetch("/api/wordbank", {
             method: "POST",
-            body: JSON.stringify({word})
+            body: JSON.stringify(word)
         });
+        console.log("response on page", response);
+        if (response.ok) {
+            setSuccess("Word added successfully!")
+            setWord("");
+        } else {
+            setSuccess("")
+        }
 
         setWord("");
     }
@@ -39,7 +46,8 @@ const Home = () => {
                            onChange={(event) => {
                                setWord(event.target.value)
                            }} className={isValid ? "" : "invalid"}/>
-                    <div className={"error"}>{!isValid ? error : ""}</div>
+                    {!isValid ? <div className={"error"}>{error}</div> : <div className={"success"}>{success}</div>}
+
                 </div>
                 <div className={"buttonContainer"}>
                     <button type="submit">Submit</button>

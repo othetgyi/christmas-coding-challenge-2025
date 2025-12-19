@@ -36,6 +36,12 @@ div.error {
     margin-top: 2px;
 }
 
+div.success {
+    color: green;
+    font-size: 0.9em;
+    margin-top: 2px;
+}
+
 div.flex-row {
     display: flex;
     align-items: start;
